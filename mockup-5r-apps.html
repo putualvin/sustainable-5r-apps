@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Sustainable 5R Apps - UI Mockup</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+  body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ed 100%);
+    min-height: 100vh;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .page-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 8px;
+  }
+  .page-subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 40px;
+  }
+  .frame-container {
+    display: flex;
+    gap: 60px;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .screen-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .screen-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .phone {
+    width: 360px;
+    height: 720px;
+    background: #fff;
+    border-radius: 36px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.15), 0 0 0 10px #1a1a1a, 0 0 0 12px #333;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 22px;
+    background: #1a1a1a;
+    border-radius: 0 0 16px 16px;
+    z-index: 10;
+  }
+  .status-bar {
+    height: 28px;
+    padding: 8px 24px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+  .status-icons { display: flex; gap: 6px; align-items: center; }
+
+  /* ============ LOGIN SCREEN ============ */
+  .login-screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 24px 16px;
+    background: linear-gradient(180deg, #fff 0%, #fff5f5 100%);
+  }
+  .logo-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  .logo-box {
+    width: 90px;
+    height: 90px;
+    background: linear-gradient(135deg, #D32F2F 0%, #b71c1c 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(211, 47, 47, 0.3);
+    margin-bottom: 14px;
+  }
+  .logo-text {
+    color: #fff;
+    font-weight: 800;
+    font-size: 28px;
+    letter-spacing: -1px;
+  }
+  .company-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: #D32F2F;
+    text-align: center;
+    letter-spacing: 0.5px;
+    line-height: 1.4;
+  }
+  .app-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a1a;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+  .app-tagline {
+    font-size: 12px;
+    color: #888;
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .form-group {
+    margin-bottom: 14px;
+  }
+  .form-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 6px;
+    display: block;
+  }
+  .input-field {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 13px;
+    background: #fff;
+    color: #333;
+    transition: border 0.2s;
+  }
+  .input-field.focused {
+    border-color: #D32F2F;
+    background: #fffafa;
+  }
+  .form-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 16px 0 20px;
+  }
+  .checkbox-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .checkbox {
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid #D32F2F;
+    border-radius: 3px;
+    background: #D32F2F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .checkbox::after {
+    content: '✓';
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .checkbox-label {
+    font-size: 12px;
+    color: #555;
+  }
+  .forgot-link {
+    font-size: 12px;
+    color: #1976D2;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .btn-primary {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #D32F2F 0%, #b71c1c 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .divider {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+    color: #aaa;
+    font-size: 11px;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #e0e0e0;
+  }
+  .divider span { padding: 0 12px; }
+  .security-note {
+    text-align: center;
+    font-size: 11px;
+    color: #888;
+    line-height: 1.5;
+  }
+  .login-footer {
+    margin-top: auto;
+    padding-top: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: #4caf50;
+    font-weight: 500;
+  }
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4caf50;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+  }
+
+  /* ============ DASHBOARD SCREEN ============ */
+  .dashboard-screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #f5f7fa;
+    overflow-y: auto;
+  }
+  .dashboard-screen::-webkit-scrollbar { display: none; }
+  .dash-header {
+    background: linear-gradient(135deg, #D32F2F 0%, #b71c1c 100%);
+    padding: 16px 20px 24px;
+    color: #fff;
+    border-radius: 0 0 20px 20px;
+  }
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #fff 0%, #ffe0e0 100%);
+    color: #D32F2F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    border: 2px solid rgba(255,255,255,0.3);
+  }
+  .user-text { display: flex; flex-direction: column; }
+  .greeting { font-size: 11px; opacity: 0.85; }
+  .username { font-size: 14px; font-weight: 600; }
+  .unit-name {
+    font-size: 11px;
+    opacity: 0.9;
+    margin-top: 1px;
+  }
+  .bell-wrap {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .bell-icon { font-size: 16px; }
+  .bell-badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 8px;
+    height: 8px;
+    background: #ffeb3b;
+    border-radius: 50%;
+    border: 2px solid #D32F2F;
+  }
+  .offline-banner {
+    background: #fff8e1;
+    color: #f57c00;
+    padding: 8px 20px;
+    font-size: 11px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 1px solid #ffe0b2;
+  }
+  .pulse-dot {
+    width: 6px;
+    height: 6px;
+    background: #f57c00;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .dash-content {
+    padding: 16px;
+    flex: 1;
+  }
+  .section-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 4px 0 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .section-action {
+    font-size: 11px;
+    color: #1976D2;
+    font-weight: 500;
+  }
+  .widget-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .widget-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border: 1px solid #eef0f3;
+  }
+  .widget-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+  .widget-label {
+    font-size: 10px;
+    color: #666;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+  .widget-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+  .icon-green { background: #e8f5e9; color: #2e7d32; }
+  .icon-blue { background: #e3f2fd; color: #1976D2; }
+  .icon-red { background: #ffebee; color: #D32F2F; }
+  .icon-yellow { background: #fff8e1; color: #f57c00; }
+  .widget-value {
+    font-size: 22px;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+  .widget-trend {
+    font-size: 10px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .trend-up { color: #2e7d32; }
+  .trend-warn-red { color: #D32F2F; }
+  .trend-warn-yellow { color: #f57c00; }
+  .trend-neutral { color: #666; }
+
+  .menu-list {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border: 1px solid #eef0f3;
+    margin-bottom: 70px;
+  }
+  .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 13px 14px;
+    border-bottom: 1px solid #f0f2f5;
+    gap: 12px;
+  }
+  .menu-item:last-child { border-bottom: none; }
+  .menu-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+  .menu-text {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 500;
+    color: #1a1a1a;
+  }
+  .menu-sub {
+    font-size: 10px;
+    color: #999;
+    margin-top: 2px;
+  }
+  .menu-arrow {
+    color: #ccc;
+    font-size: 16px;
+  }
+
+  .bottom-nav {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0 14px;
+    border-top: 1px solid #eef0f3;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.04);
+  }
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    color: #999;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 8px;
+  }
+  .nav-item.active {
+    color: #D32F2F;
+  }
+  .nav-icon { font-size: 18px; }
+  .nav-item.active .nav-icon-wrap {
+    background: #ffebee;
+    padding: 4px 14px;
+    border-radius: 12px;
+  }
+
+  /* Annotations */
+  .annotations {
+    margin-top: 30px;
+    max-width: 900px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  }
+  .annot-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #D32F2F;
+  }
+  .annot-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .annot-col h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #D32F2F;
+    margin-bottom: 8px;
+  }
+  .annot-col ul {
+    list-style: none;
+    padding: 0;
+  }
+  .annot-col li {
+    font-size: 12px;
+    color: #444;
+    padding: 4px 0;
+    padding-left: 18px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .annot-col li::before {
+    content: '●';
+    color: #D32F2F;
+    position: absolute;
+    left: 4px;
+    font-size: 8px;
+    top: 8px;
+  }
+  .color-swatches {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+  .swatch {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+  }
+  .swatch-box {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+</style>
+</head>
+<body>
+
+<h1 class="page-title">Sustainable 5R Apps — Mobile UI Mockup</h1>
+<p class="page-subtitle">Sinar Mas Agribusiness and Food | Auditor & PIC Area</p>
+
+<div class="frame-container">
+
+  <!-- ============================ LOGIN SCREEN ============================ -->
+  <div class="screen-wrapper">
+    <div class="screen-label">Screen 1 — Login</div>
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="status-bar">
+        <span>09:41</span>
+        <div class="status-icons">
+          <span>●●●●</span>
+          <span>📶</span>
+          <span>🔋</span>
+        </div>
+      </div>
+
+      <div class="login-screen">
+        <div class="logo-area">
+          <div class="logo-box">
+            <span class="logo-text">5R</span>
+          </div>
+          <div class="company-name">SINAR MAS<br>AGRIBUSINESS AND FOOD</div>
+        </div>
+
+        <h2 class="app-title">Sustainable 5R Apps</h2>
+        <p class="app-tagline">Ringkas · Rapi · Resik · Rawat · Rajin</p>
+
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="text" class="input-field" value="auditor@sinarmas.co.id" readonly>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" class="input-field focused" value="••••••••••" readonly>
+        </div>
+
+        <div class="form-row">
+          <div class="checkbox-wrap">
+            <div class="checkbox"></div>
+            <span class="checkbox-label">Ingat saya</span>
+          </div>
+          <a class="forgot-link">Lupa password?</a>
+        </div>
+
+        <button class="btn-primary">
+          <span>🔐</span> Login dengan SSO
+        </button>
+
+        <div class="divider"><span>Akses Aman</span></div>
+
+        <p class="security-note">
+          Gunakan kredensial korporat Anda.<br>
+          Single Sign-On terenkripsi · v2.4.1
+        </p>
+
+        <div class="login-footer">
+          <div class="status-dot"></div>
+          <span>Online · Terhubung ke server</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ DASHBOARD SCREEN ============================ -->
+  <div class="screen-wrapper">
+    <div class="screen-label">Screen 2 — Dashboard</div>
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="status-bar">
+        <span>09:42</span>
+        <div class="status-icons">
+          <span>●●●●</span>
+          <span>📶</span>
+          <span>🔋</span>
+        </div>
+      </div>
+
+      <div class="dashboard-screen">
+        <div class="dash-header">
+          <div class="header-top">
+            <div class="user-info">
+              <div class="avatar">BS</div>
+              <div class="user-text">
+                <span class="greeting">Selamat pagi,</span>
+                <span class="username">Budi Santoso</span>
+                <span class="unit-name">📍 Refinery 2</span>
+              </div>
+            </div>
+            <div class="bell-wrap">
+              <span class="bell-icon">🔔</span>
+              <span class="bell-badge"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="offline-banner">
+          <span class="pulse-dot"></span>
+          <span><strong>Mode Offline</strong> — Data akan disinkronkan</span>
+        </div>
+
+        <div class="dash-content">
+          <div class="section-title">
+            <span>Ringkasan Performa</span>
+            <span class="section-action">Lihat semua →</span>
+          </div>
+
+          <div class="widget-grid">
+            <!-- Skor 5R -->
+            <div class="widget-card">
+              <div class="widget-header">
+                <span class="widget-label">Skor 5R<br>Bulan Ini</span>
+                <div class="widget-icon icon-green">📈</div>
+              </div>
+              <div class="widget-value">85%</div>
+              <div class="widget-trend trend-up">↑ +5% vs bulan lalu</div>
+            </div>
+
+            <!-- Daily Checklist -->
+            <div class="widget-card">
+              <div class="widget-header">
+                <span class="widget-label">Daily<br>Checklist</span>
+                <div class="widget-icon icon-blue">✅</div>
+              </div>
+              <div class="widget-value">12/15</div>
+              <div class="widget-trend trend-neutral">80% terisi bulan ini</div>
+            </div>
+
+            <!-- Open CAPA -->
+            <div class="widget-card">
+              <div class="widget-header">
+                <span class="widget-label">Open<br>CAPA</span>
+                <div class="widget-icon icon-red">⚠️</div>
+              </div>
+              <div class="widget-value">8</div>
+              <div class="widget-trend trend-warn-red">🔴 3 deadline &lt; 3 hari</div>
+            </div>
+
+            <!-- Red Tag -->
+            <div class="widget-card">
+              <div class="widget-header">
+                <span class="widget-label">Red Tag<br>Aktif</span>
+                <div class="widget-icon icon-yellow">🏷️</div>
+              </div>
+              <div class="widget-value">5</div>
+              <div class="widget-trend trend-warn-yellow">🟡 2 item &gt; 25 hari</div>
+            </div>
+          </div>
+
+          <div class="section-title">
+            <span>Menu Utama</span>
+          </div>
+
+          <div class="menu-list">
+            <div class="menu-item">
+              <div class="menu-icon icon-red">📋</div>
+              <div class="menu-text">
+                Audit 5R
+                <div class="menu-sub">Jadwalkan & lakukan audit area</div>
+              </div>
+              <span class="menu-arrow">›</span>
+            </div>
+            <div class="menu-item">
+              <div class="menu-icon icon-blue">☑️</div>
+              <div class="menu-text">
+                Daily Checklist
+                <div class="menu-sub">Isi checklist harian area</div>
+              </div>
+              <span class="menu-arrow">›</span>
+            </div>
+            <div class="menu-item">
+              <div class="menu-icon icon-yellow">🏷️</div>
+              <div class="menu-text">
+                Red Tag Management
+                <div class="menu-sub">Kelola label item tidak sesuai</div>
+              </div>
+              <span class="menu-arrow">›</span>
+            </div>
+            <div class="menu-item">
+              <div class="menu-icon icon-green">📄</div>
+              <div class="menu-text">
+                Dokumen 5R
+                <div class="menu-sub">SOP, panduan, & referensi</div>
+              </div>
+              <span class="menu-arrow">›</span>
+            </div>
+            <div class="menu-item">
+              <div class="menu-icon icon-blue">📊</div>
+              <div class="menu-text">
+                Laporan & Skor
+                <div class="menu-sub">Analitik & tren performa</div>
+              </div>
+              <span class="menu-arrow">›</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bottom-nav">
+          <div class="nav-item active">
+            <div class="nav-icon-wrap"><span class="nav-icon">🏠</span></div>
+            <span>Home</span>
+          </div>
+          <div class="nav-item">
+            <span class="nav-icon">📋</span>
+            <span>Audit</span>
+          </div>
+          <div class="nav-item">
+            <span class="nav-icon">☑️</span>
+            <span>Checklist</span>
+          </div>
+          <div class="nav-item">
+            <span class="nav-icon">👤</span>
+            <span>Profile</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================ DESIGN SPEC ANNOTATIONS ============================ -->
+<div class="annotations">
+  <h2 class="annot-title">Design Specifications</h2>
+
+  <div class="annot-grid">
+    <div class="annot-col">
+      <h4>🎨 Color Palette</h4>
+      <div class="color-swatches">
+        <div class="swatch"><div class="swatch-box" style="background:#D32F2F"></div>Primary #D32F2F</div>
+        <div class="swatch"><div class="swatch-box" style="background:#1976D2"></div>Secondary #1976D2</div>
+        <div class="swatch"><div class="swatch-box" style="background:#2e7d32"></div>Success</div>
+        <div class="swatch"><div class="swatch-box" style="background:#f57c00"></div>Warning</div>
+      </div>
+
+      <h4 style="margin-top:16px;">📐 Spacing & Layout</h4>
+      <ul>
+        <li>Margin halaman: 24dp · Antar elemen: 16dp</li>
+        <li>Card border-radius: 8–12dp dengan shadow subtle</li>
+        <li>Grid widget: 2 kolom dengan gap 10dp</li>
+        <li>Optimized 5"–6" mobile screen</li>
+      </ul>
+    </div>
+
+    <div class="annot-col">
+      <h4>✏️ Typography</h4>
+      <ul>
+        <li>Font family: Inter (fallback: Roboto)</li>
+        <li>Hero number widget: 22pt / weight 800</li>
+        <li>Section title: 13pt / weight 700</li>
+        <li>Body & label: 11–13pt / weight 400–600</li>
+      </ul>
+
+      <h4 style="margin-top:16px;">⚙️ Fitur Khusus Lapangan</h4>
+      <ul>
+        <li>Banner kuning <strong>Mode Offline</strong> dengan pulse animation</li>
+        <li>Status indikator online/offline di footer login</li>
+        <li>Warning color-coded: merah (kritis) & kuning (perhatian)</li>
+        <li>Bottom nav 4 tab dengan active state berbentuk pill</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
