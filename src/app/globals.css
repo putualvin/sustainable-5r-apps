@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand-red: #e30613;
+  --brand-black: #1a1a1a;
+}
+
+html,
+body {
+  background: #f4f4f5;
+  color: var(--brand-black);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Shell mobile-first: konten dibatasi lebar app, di tengah pada layar lebar. */
+.app-shell {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: #ffffff;
+  position: relative;
+}

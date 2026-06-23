@@ -1,0 +1,171 @@
+// Prisma schema — Sustainable 5R (Shadow Build / demo)
+// Acuan: CLAUDE.md §8. SQLite tidak mendukung enum & scalar list,
+// jadi enum disimpan sebagai String (nilai sah didokumentasikan di sini)
+// dan daftar foto disimpan sebagai JSON string ("fotoPaths").
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ===== Role (User.role) =====
+// ADMIN | KOMITE | AUDITOR | AUDITEE | REDTAG | MANAGEMENT
+model User {
+  id        String   @id @default(cuid())
+  nama      String
+  role      String
+  email     String   @unique
+  areaId    String? // untuk AUDITEE/PIC area & relevan lain
+  area      Area?    @relation(fields: [areaId], references: [id])
+  createdAt DateTime @default(now())
+
+  assignments AuditAssignment[] @relation("AuditorAssignments")
+}
+
+// 12 area Refinery 2. grup: "Refinery" | "Fractionation" | dst.
+model Area {
+  id   String @id @default(cuid())
+  nama String @unique
+  grup String
+
+  users          User[]
+  assignments    AuditAssignment[]
+  findings       Finding[]
+  scores         Score[]
+  checklistItems ChecklistItem[]
+}
+
+// Siklus audit bulanan. status: "AKTIF" | "PENILAIAN" | "CLOSED"
+model AuditCycle {
+  id      String @id @default(cuid())
+  periode String @unique // contoh: "2026-04" (April 2026)
+  status  String @default("AKTIF")
+
+  assignments AuditAssignment[]
+  scores      Score[]
+  createdAt   DateTime @default(now())
+}
+
+// Penugasan auditor ke sebuah area dalam satu siklus (cross-area).
+// status: "BELUM_MULAI" | "DRAFT" | "TERKIRIM"
+model AuditAssignment {
+  id        String     @id @default(cuid())
+  cycleId   String
+  cycle     AuditCycle @relation(fields: [cycleId], references: [id])
+  areaId    String
+  area      Area       @relation(fields: [areaId], references: [id])
+  auditorId String
+  auditor   User       @relation("AuditorAssignments", fields: [auditorId], references: [id])
+  status    String     @default("BELUM_MULAI")
+  fotoBoard String? // foto board (output auditor, §5.1)
+  submittedAt DateTime?
+
+  findings Finding[]
+
+  @@unique([cycleId, areaId])
+}
+
+// Guiding Question 5R. prinsipR: "RINGKAS" | "RAPI" | "RESIK" | "RAWAT" | "RAJIN"
+model GuidingQuestion {
+  id       String @id @default(cuid())
+  prinsipR String
+  urutan   Int    @default(0)
+  teks     String
+
+  findings Finding[]
+}
+
+// Temuan audit (CAPA).
+// kategori: "LOW" | "HIGH"
+// status (ditetapkan KOMITE): null (belum dinilai) | "OPEN" | "PROGRESS" | "NO_PROGRESS" | "DONE"
+model Finding {
+  id                String          @id @default(cuid())
+  assignmentId      String
+  assignment        AuditAssignment @relation(fields: [assignmentId], references: [id])
+  areaId            String
+  area              Area            @relation(fields: [areaId], references: [id])
+  guidingQuestionId String?
+  guidingQuestion   GuidingQuestion? @relation(fields: [guidingQuestionId], references: [id])
+  deskripsi         String
+  kategori          String          @default("LOW")
+  isRecurring       Boolean         @default(false) // temuan berulang (20+1)
+  fotoPaths         String          @default("[]")  // JSON array of path
+  status            String? // hanya KOMITE yang mengisi (§5.3)
+  statusSetByKomite Boolean         @default(false)
+  createdAt         DateTime        @default(now())
+
+  followUp FollowUp?
+}
+
+// Tindak lanjut oleh Auditee (§5.2).
+model FollowUp {
+  id           String   @id @default(cuid())
+  findingId    String   @unique
+  finding      Finding  @relation(fields: [findingId], references: [id])
+  rootCause    String
+  corrective   String
+  preventive   String
+  woScPoNumber String? // wajib bila status Progress (§5.2/§5.3)
+  fotoPaths    String   @default("[]") // JSON array of {path, keterangan}
+  submittedAt  DateTime @default(now())
+}
+
+// Hasil scoring per area per siklus (dihitung dari data, bukan hardcode §10).
+model Score {
+  id             String     @id @default(cuid())
+  cycleId        String
+  cycle          AuditCycle @relation(fields: [cycleId], references: [id])
+  areaId         String
+  area           Area       @relation(fields: [areaId], references: [id])
+  nilaiUtama     Float // Lapis 1
+  temuanBerulang Int    @default(0)
+  parkingLot     Int    @default(0)
+  scoreAkhir     Float // Lapis 2
+  computedAt     DateTime @default(now())
+
+  @@unique([cycleId, areaId])
+}
+
+// ===== Daily Checklist (TERPISAH dari Audit & tidak masuk Score Akhir §5.6) =====
+model ChecklistItem {
+  id     String @id @default(cuid())
+  areaId String
+  area   Area   @relation(fields: [areaId], references: [id])
+  urutan Int    @default(0)
+  teks   String
+
+  entries ChecklistEntry[]
+}
+
+// jawaban: "YES" | "NO"
+model ChecklistEntry {
+  id        String        @id @default(cuid())
+  itemId    String
+  item      ChecklistItem @relation(fields: [itemId], references: [id])
+  tanggal   String // "YYYY-MM-DD" — reset harian
+  jawaban   String
+  catatan   String?
+  fotoPath  String?
+  createdAt DateTime      @default(now())
+
+  @@unique([itemId, tanggal])
+}
+
+// ===== Red Tag (lifecycle terpisah §5.7) =====
+// status: "REGISTERED" | "DISPOSED" | "RETURNED" | "RELOCATED"
+model RedTagItem {
+  id        String   @id @default(cuid())
+  deskripsi String
+  lokasi    String
+  foto      String?
+  tglMasuk  DateTime @default(now())
+  deadline  DateTime // tglMasuk + 30/90 hari
+  tenggat   Int      @default(30) // 30 atau 90 (hari)
+  qrCode    String   @unique
+  status    String   @default("REGISTERED")
+  createdAt DateTime @default(now())
+}
