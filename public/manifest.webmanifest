@@ -1,0 +1,17 @@
+{
+  "name": "Sustainable 5R — Refinery 2",
+  "short_name": "5R",
+  "description": "Digitalisasi program Sustainable 5R Sinar Mas Agribusiness and Food — input lapangan offline.",
+  "lang": "id",
+  "start_url": "/beranda",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#E30613",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

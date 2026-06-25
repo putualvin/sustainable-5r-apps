@@ -4,6 +4,7 @@ import { getCurrentUser } from "@/lib/session";
 import { ROLE_NAV, isRole, type Role } from "@/lib/roles";
 import { RoleSwitcher, type SwitchUser } from "@/components/RoleSwitcher";
 import { BottomNav } from "@/components/BottomNav";
+import { OfflineBar } from "@/components/OfflineBar";
 
 export const dynamic = "force-dynamic";
 
@@ -46,6 +47,8 @@ export default async function AppLayout({ children }: { children: React.ReactNod
           <RoleSwitcher current={current} users={switchUsers} />
         </div>
       </header>
+
+      <OfflineBar />
 
       <main className="flex-1 pb-2">{children}</main>
 
