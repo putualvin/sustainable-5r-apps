@@ -6,6 +6,19 @@ node_modules/
 dist/
 build/
 .vite/
+.next/
+out/
+next-env.d.ts
+
+# Database (SQLite lokal — dev only)
+*.db
+*.db-journal
+prisma/dev.db
+prisma/migrations/
+
+# Upload foto demo
+public/uploads/*
+!public/uploads/.gitkeep
 
 # Environment
 .env
