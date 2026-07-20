@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Brand — PLACEHOLDER. Ganti ke warna korporat Sinar Mas saat tersedia. */
+  --brand: #0f766e;
+  --brand-fg: #ffffff;
+
+  /* Status */
+  --status-ontarget: #059669;
+  --status-waspada: #d97706;
+  --status-under: #e11d48;
+  --status-na: #94a3b8;
+
+  --font-sans: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial,
+    sans-serif;
+}
+
+html {
+  font-family: var(--font-sans);
+}
+
+body {
+  @apply bg-slate-100 text-slate-800 antialiased;
+}
+
+/* Angka rata & mudah dibandingkan seperti laporan Power BI. */
+.tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}
